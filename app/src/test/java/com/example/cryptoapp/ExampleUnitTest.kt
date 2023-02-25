@@ -1,4 +1,4 @@
-package com.example.unicryptoapp
+package com.example.cryptoapp
 
 import org.junit.Test
 
