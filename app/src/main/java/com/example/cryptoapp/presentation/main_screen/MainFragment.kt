@@ -1,16 +1,20 @@
 package com.example.cryptoapp.presentation.main_screen
 
+import android.os.AsyncTask
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cryptoapp.data.db.CryptoDatabase
+import com.example.cryptoapp.data.CryptoDatabase
 import com.example.cryptoapp.databinding.FragmentMainBinding
 import com.example.cryptoapp.presentation.base.BaseFragment
 import com.example.cryptoapp.presentation.contracts.MainContract
+import com.example.cryptoapp.presentation.item.CryptoItem
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
@@ -25,9 +29,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private fun initObservers() {
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.uiState.collect {
-                when(it.cryptoState) {
+        lifecycleScope.launch {
+            viewModel.uiState.collect { state ->
+                when(state.cryptoState) {
                     is MainContract.CryptoState.Loading -> {
                         //
                     }
@@ -41,7 +45,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                         binding.rvCrypto.adapter = adapter
 
                         val db = CryptoDatabase.getDatabase(requireContext())
-                        adapter.setData(viewModel.getCryptosFromDb(db))
+                        val cryptos = viewModel.getCryptosFromDb(db)
+
+//                        Log.d("KEK", "Putting data into adapter")
+                        adapter.setData(cryptos.map {
+                            CryptoItem(it.abbr, it.title, it.imageLink, it.price)
+                        })
                     }
                 }
             }

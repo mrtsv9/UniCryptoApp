@@ -1,13 +1,14 @@
-package com.example.cryptoapp.data.db
+package com.example.cryptoapp.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.cryptoapp.data.db.dao.CryptoDao
-import com.example.cryptoapp.data.db.entities.Crypto
+import com.example.cryptoapp.data.dao.CryptoDao
+import com.example.cryptoapp.data.entities.CryptoEntity
+import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = [Crypto::class], version = 1)
+@Database(entities = [CryptoEntity::class], version = 1)
 abstract class CryptoDatabase: RoomDatabase() {
 
     abstract fun cryptoDao(): CryptoDao

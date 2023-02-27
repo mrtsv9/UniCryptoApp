@@ -2,14 +2,15 @@ package com.example.cryptoapp.presentation.splash_screen
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cryptoapp.MainActivity
 import com.example.cryptoapp.R
-import com.example.cryptoapp.data.db.CryptoDatabase
+import com.example.cryptoapp.data.CryptoDatabase
 import com.example.cryptoapp.presentation.main_screen.MainViewModel
+import kotlinx.coroutines.*
 
 @SuppressLint("CustomSplashScreen")
 @Suppress("DEPRECATION")
@@ -26,8 +27,10 @@ class SplashScreenActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        val db = CryptoDatabase.getDatabase(this)
-        viewModel.insertCryptos(db)
+        CoroutineScope(Dispatchers.IO).launch {
+            val db = CryptoDatabase.getDatabase(applicationContext)
+            viewModel.insertCryptos(db)
+        }
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
