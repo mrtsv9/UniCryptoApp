@@ -11,7 +11,10 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.cryptoapp.databinding.ActivityMainBinding
+import com.example.cryptoapp.di.appModule
 import com.example.cryptoapp.presentation.main_screen.MainFragment
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -21,10 +24,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
         supportFragmentManager.beginTransaction()
             .add(R.id.container, MainFragment())
             .commit()

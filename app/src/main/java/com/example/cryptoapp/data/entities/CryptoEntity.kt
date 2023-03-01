@@ -2,6 +2,7 @@ package com.example.cryptoapp.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.cryptoapp.presentation.item.CryptoItem
 
 @Entity(tableName = "crypto_table")
 data class CryptoEntity(
@@ -12,3 +13,12 @@ data class CryptoEntity(
     var imageLink: String,
     var price: String
 )
+
+fun CryptoEntity.toCryptoItem(): CryptoItem{
+    return CryptoItem(
+        abbr = abbr,
+        title = title,
+        imageLink = imageLink,
+        price = price
+    )
+}

@@ -1,18 +1,21 @@
 package com.example.cryptoapp.presentation.main_screen
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.paging.*
 import com.example.cryptoapp.data.CryptoDatabase
 import com.example.cryptoapp.data.entities.CryptoEntity
 import com.example.cryptoapp.domain.dto.CryptoResponse
+import com.example.cryptoapp.domain.dto.toCryptoEntity
 import com.example.cryptoapp.presentation.base.BaseViewModel
 import com.example.cryptoapp.presentation.contracts.MainContract
+import com.example.cryptoapp.presentation.item.CryptoItem
 import kotlinx.coroutines.*
-import kotlin.system.measureTimeMillis
+import kotlinx.coroutines.flow.Flow
 
-class MainViewModel(): BaseViewModel<MainContract.Event, MainContract.State, MainContract.Effect>() {
+class MainViewModel constructor(
+    private val repository: MainRepository
+): BaseViewModel<MainContract.Event, MainContract.State, MainContract.Effect>() {
 
-    private val repository = MainRepository()
 
     override fun createInitialState(): MainContract.State {
         return MainContract.State(MainContract.CryptoState.Success)
@@ -26,17 +29,15 @@ class MainViewModel(): BaseViewModel<MainContract.Event, MainContract.State, Mai
     fun insertCryptos(db: CryptoDatabase) {
         viewModelScope.launch {
             try {
-//                Log.d("KEK", "Getting cryptos..")
                 val cryptos = runBlocking { fetchCryptos() }
-//                Log.d("KEK", "Fetched data from API")
                 runBlocking {
                     cryptos?.forEach {
-                        db.cryptoDao().insertCrypto(
-                            CryptoEntity(it.id, it.abbr, it.title, it.imageLink, it.price)
-                        )
+                        db.cryptoDao().insertCrypto(it.toCryptoEntity())
+//                        db.cryptoDao().insertCrypto(
+//                            CryptoEntity(it.id, it.abbr, it.title, it.imageLink, it.price)
+//                        )
                     }
                 }
-//                    Log.d("KEK", "Inserted into DB")
                     setState { copy(cryptoState = MainContract.CryptoState.Success) }
             }
             catch (e: Exception) {
@@ -51,11 +52,22 @@ class MainViewModel(): BaseViewModel<MainContract.Event, MainContract.State, Mai
         else emptyList()
     }
 
-    suspend fun getCryptosFromDb(db: CryptoDatabase): List<CryptoEntity> {
-        val cryptos = emptyList<CryptoEntity>().toMutableList()
-        cryptos.addAll(db.cryptoDao().getAllCrypto())
-        Log.d("KEK", "Got from DB")
-        return cryptos
+    fun fetchCryptosByPage(): Flow<PagingData<CryptoItem>> {
+        return repository.getCryptosByPage().cachedIn(viewModelScope)
+    }
+
+    fun fetchCryptosByPageFromDb(): Flow<PagingData<CryptoItem>> {
+        return repository.getCryptosByPageFromDb().cachedIn(viewModelScope)
+    }
+
+    fun getCryptosFromDb(): List<CryptoEntity> {
+        val list = mutableListOf<CryptoEntity>()
+        viewModelScope.launch {
+            runBlocking {
+                list.addAll(repository.getCryptosFromDb())
+            }
+        }
+        return list
     }
 
 }

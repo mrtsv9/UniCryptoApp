@@ -1,4 +1,4 @@
-package com.example.cryptoapp.presentation.main_screen
+package com.example.cryptoapp.presentation.main_screen.util
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 //    private var listOfCrypto = emptyList<Crypto>()
 //    private var listOfCrypto = emptyList<CryptoDto>()
 //    private var listOfCrypto = emptyList<CryptoEntity>()
-    private var listOfCrypto = emptyList<CryptoItem>()
+    private var listOfCrypto = emptyList<CryptoItem>().toMutableList()
 
     class MainViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
@@ -28,10 +28,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_crypto_title)
         private val tvPrice: TextView = itemView.findViewById(R.id.tv_crypto_price)
 
-        //        fun bind(crypto: Crypto) {
         @SuppressLint("SetTextI18n")
-        //fun bind(crypto: CryptoDto) {
-        //fun bind(crypto: CryptoEntity) {
         fun bind(crypto: CryptoItem) {
                     Glide.with(itemView)
                         .load(crypto.imageLink)
@@ -58,12 +55,17 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-//    fun setData(cryptos: List<Crypto>?) {
-//    fun setData(cryptos: List<CryptoDto>?) {
-//    fun setData(cryptos: List<CryptoEntity>?) {
     fun setData(cryptos: List<CryptoItem>?) {
         if(cryptos != null) {
-        this.listOfCrypto = cryptos
+        this.listOfCrypto.addAll(cryptos)
+        }
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addData(cryptos: List<CryptoItem>?) {
+        if(cryptos != null) {
+            this.listOfCrypto.addAll(cryptos)
         }
         notifyDataSetChanged()
     }

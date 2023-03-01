@@ -9,14 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cryptoapp.MainActivity
 import com.example.cryptoapp.R
 import com.example.cryptoapp.data.CryptoDatabase
+import com.example.cryptoapp.domain.data_source.CryptoRemoteDataSource
+import com.example.cryptoapp.presentation.main_screen.MainRepository
 import com.example.cryptoapp.presentation.main_screen.MainViewModel
+//import com.example.cryptoapp.domain.service.CryptoRemoteDataSource
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
 @Suppress("DEPRECATION")
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

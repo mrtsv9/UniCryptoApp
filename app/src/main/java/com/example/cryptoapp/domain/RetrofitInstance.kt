@@ -1,8 +1,5 @@
 package com.example.cryptoapp.domain
 
-import com.example.cryptoapp.domain.dao.ApiService
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
