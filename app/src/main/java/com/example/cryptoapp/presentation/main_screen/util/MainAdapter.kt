@@ -32,7 +32,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
         fun bind(crypto: CryptoItem) {
                     Glide.with(itemView)
                         .load(crypto.imageLink)
-                        .placeholder(R.drawable.ic_bitcoin)
+                        .placeholder(R.drawable.ic_bitcoin48)
                         .into(ivLogo)
                     tvAbbr.text = crypto.abbr
                     tvTitle.text = crypto.title

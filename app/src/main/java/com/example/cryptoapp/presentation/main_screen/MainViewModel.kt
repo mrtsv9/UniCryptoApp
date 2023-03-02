@@ -22,7 +22,14 @@ class MainViewModel constructor(
     }
 
     override fun handleEvent(event: MainContract.Event) {
-
+//        when(event) {
+//            is MainContract.Event.OnInternetCheckFailure -> {
+//                setEffect { MainContract.Effect.InternetError }
+//            }
+//            is MainContract.Event.OnInternetCheckSuccess -> {
+//                setEffect { MainContract.Effect.InternetSuccess }
+//            }
+//        }
     }
 
     // Fetching cryptos from server and inserting in DB
@@ -33,15 +40,12 @@ class MainViewModel constructor(
                 runBlocking {
                     cryptos?.forEach {
                         db.cryptoDao().insertCrypto(it.toCryptoEntity())
-//                        db.cryptoDao().insertCrypto(
-//                            CryptoEntity(it.id, it.abbr, it.title, it.imageLink, it.price)
-//                        )
                     }
                 }
                     setState { copy(cryptoState = MainContract.CryptoState.Success) }
             }
             catch (e: Exception) {
-                setEffect { MainContract.Effect.LoadingError } // Пока что ничего не делает
+//                setEffect { MainContract.Effect.InternetError }
             }
         }
     }
@@ -56,9 +60,9 @@ class MainViewModel constructor(
         return repository.getCryptosByPage().cachedIn(viewModelScope)
     }
 
-    fun fetchCryptosByPageFromDb(): Flow<PagingData<CryptoItem>> {
-        return repository.getCryptosByPageFromDb().cachedIn(viewModelScope)
-    }
+//    fun fetchCryptosByPageFromDb(): Flow<PagingData<CryptoItem>> {
+//        return repository.getCryptosByPageFromDb().cachedIn(viewModelScope)
+//    }
 
     fun getCryptosFromDb(): List<CryptoEntity> {
         val list = mutableListOf<CryptoEntity>()

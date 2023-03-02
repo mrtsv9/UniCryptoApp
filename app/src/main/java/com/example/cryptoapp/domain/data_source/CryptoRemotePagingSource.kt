@@ -1,5 +1,6 @@
 package com.example.cryptoapp.domain.data_source
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.cryptoapp.domain.RetrofitInstance
@@ -20,13 +21,13 @@ class CryptoRemotePagingSource: PagingSource<Int, CryptoResponse>() {
             val response = retrofit.getCryptosByPage(
                 page = pageIndex.toString()
             )
-            val cryptos = response.body()
+            val cryptos: List<CryptoResponse>? = response.body()
             val nextKey =
                 if (cryptos!!.isEmpty()) {
                     null
                 } else {
-                    // By default, initial load size = 3 * NETWORK PAGE SIZE
-                    // ensure we're not requesting duplicating items at the 2nd request
+                    // That means that user reached limit of 50 calls/minute
+                    Log.d("KEK","API is not responding")
                     pageIndex + (params.loadSize / NETWORK_PAGE_SIZE)
                 }
             LoadResult.Page(

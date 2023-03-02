@@ -3,6 +3,7 @@
     package="com.example.cryptoapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,7 @@
         <activity
             android:name=".presentation.splash_screen.SplashScreenActivity"
             android:theme="@style/Theme.CryptoApp"
+            android:noHistory="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +26,12 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:enabled="true"
             android:exported="true">
         </activity>
+        <service
+            android:name=".test_service.MyService"
+            android:enabled="true" />
     </application>
 
 </manifest>

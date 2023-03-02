@@ -13,9 +13,12 @@ import com.bumptech.glide.Glide
 import com.example.cryptoapp.R
 import com.example.cryptoapp.presentation.item.CryptoItem
 
-class PagingMainAdapter: PagingDataAdapter<CryptoItem, PagingMainAdapter.PagingMainViewHolder>(CryptoDiffCallback()) {
+class PagingMainAdapter(
+    private val clickListener: (CryptoItem) -> Unit
+): PagingDataAdapter<CryptoItem, PagingMainAdapter.PagingMainViewHolder>(CryptoDiffCallback()) {
 
-    class PagingMainViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class PagingMainViewHolder(itemView: View, private val clickListener: (CryptoItem) -> Unit
+    ): RecyclerView.ViewHolder(itemView) {
 
         private val ivLogo: ImageView = itemView.findViewById(R.id.iv_crypto_logo)
         private val tvAbbr: TextView = itemView.findViewById(R.id.tv_crypto_abbr)
@@ -24,9 +27,10 @@ class PagingMainAdapter: PagingDataAdapter<CryptoItem, PagingMainAdapter.PagingM
 
         @SuppressLint("SetTextI18n")
         fun bind(crypto: CryptoItem) {
+                    itemView.setOnClickListener { clickListener(crypto) }
                     Glide.with(itemView)
                         .load(crypto.imageLink)
-                        .placeholder(R.drawable.ic_bitcoin)
+                        .placeholder(R.drawable.ic_bitcoin48)
                         .into(ivLogo)
                     tvAbbr.text = crypto.abbr
                     tvTitle.text = crypto.title
@@ -50,7 +54,7 @@ class PagingMainAdapter: PagingDataAdapter<CryptoItem, PagingMainAdapter.PagingM
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagingMainViewHolder {
         return PagingMainViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_crypto, parent, false))
+            .inflate(R.layout.item_crypto, parent, false), clickListener)
     }
 
     override fun onBindViewHolder(holder: PagingMainViewHolder, position: Int) {

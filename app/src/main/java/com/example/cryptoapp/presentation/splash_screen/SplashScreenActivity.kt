@@ -3,9 +3,11 @@ package com.example.cryptoapp.presentation.splash_screen
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.IntentCompat
 import com.example.cryptoapp.MainActivity
 import com.example.cryptoapp.R
 import com.example.cryptoapp.data.CryptoDatabase
@@ -37,7 +39,10 @@ class SplashScreenActivity : AppCompatActivity() {
             viewModel.insertCryptos(db)
         }
 
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        Handler().postDelayed({
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        },1000)
+
     }
 }
