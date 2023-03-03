@@ -7,5 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="btn_inactive">#C4C4C4</color>
     <color name="colorPrimaryVariant">#2ED25C</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="color_transparent">@android:color/transparent</color>
 </resources>

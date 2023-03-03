@@ -16,9 +16,12 @@ data class CryptoEntity(
 
 fun CryptoEntity.toCryptoItem(): CryptoItem{
     return CryptoItem(
+        id = id,
         abbr = abbr,
         title = title,
         imageLink = imageLink,
-        price = price
+        price = price,
+        marketCap = null,
+        priceChange = null
     )
 }

@@ -15,10 +15,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:contentInsetStartWithNavigation="0dp"
-        app:titleMarginStart="12dp" />
+        app:titleMarginStart="12dp" >
+
+        <ImageView
+            android:id="@+id/iv_details_logo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_bitcoin24"/>
+
+        <TextView
+            android:id="@+id/tv_details_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Bitcoin"
+            android:textColor="@color/white"
+            android:layout_marginStart="24dp"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/tv_selected_crypto_price"
+        android:transitionName="transition_details_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="99999.99 $"
@@ -49,5 +67,116 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_selected_crypto_percent" />
+
+<!-- -->
+
+    <LinearLayout
+        android:id="@+id/ll_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:showDividers="middle"
+        android:divider="@drawable/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_chart">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_24h"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="24H"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="#C4C4C4"
+            android:textSize="16sp"
+            android:padding="0dp"
+            android:background="@drawable/my_button"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_1w"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="1W"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#C4C4C4"
+            android:textSize="16sp"
+            android:padding="0dp"
+            android:background="@drawable/my_button"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_1m"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="1M"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#C4C4C4"
+            android:textSize="16sp"
+            android:padding="0dp"
+            android:background="@drawable/my_button"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_1y"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="1Y"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#C4C4C4"
+            android:textSize="16sp"
+            android:padding="0dp"
+            android:background="@drawable/my_button"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_all"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="ALL"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#C4C4C4"
+            android:textSize="16sp"
+            android:padding="0dp"
+            android:background="@drawable/my_button"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="26dp"
+        android:background="#C4C4C4"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_buttons" />
+
+    <TextView
+        android:id="@+id/tv_market_cap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Market cap"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/tv_market_cap_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$ 999.99 B"
+        android:textColor="#2ED25C"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_market_cap"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/tv_market_cap" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

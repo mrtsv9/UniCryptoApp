@@ -1,9 +1,13 @@
 package com.example.cryptoapp.presentation.main_screen
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,6 +23,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.w3c.dom.Text
+import java.nio.file.Files.find
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
@@ -55,7 +61,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 when(state.cryptoState) {
 //                    is MainContract.CryptoState.Loading -> {}
                     is MainContract.CryptoState.Error -> {
-                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show()
                     }
                     is MainContract.CryptoState.Success -> {
                         binding.rvCrypto.layoutManager = LinearLayoutManager(binding.root.context,
@@ -71,19 +77,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 }
             }
         }
-
-//        lifecycleScope.launch {
-//            viewModel.effect.collect {
-//                when(it) {
-//                    is MainContract.Effect.InternetError -> {
-//                        Toast.makeText(context, "NO INTERNET", Toast.LENGTH_SHORT).show()
-//                    }
-//                    is MainContract.Effect.InternetSuccess -> {
-//                        Toast.makeText(context, "SUCCESSFULLY CONNECTED", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//        }
 
     }
 
@@ -110,7 +103,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun cryptoClickListener(crypto: CryptoItem) {
-        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment())
+//        val textView: TextView = requireView().findViewById(R.id.tv_crypto_price)
+//        val extras = FragmentNavigatorExtras(
+//            textView to "transition_details_price"
+//        )
+//        findNavController().navigate(R.id.action_mainFragment_to_detailsFragment,
+//            null,
+//            null,
+//            extras)
+
+        val bundle = Bundle()
+        bundle.putParcelable("Crypto", crypto)
+
+        findNavController().navigate(R.id.action_mainFragment_to_detailsFragment,
+            bundle)
     }
 
 }

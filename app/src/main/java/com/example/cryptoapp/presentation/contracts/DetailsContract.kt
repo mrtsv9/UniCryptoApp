@@ -4,7 +4,7 @@ import com.example.cryptoapp.presentation.base.UiEffect
 import com.example.cryptoapp.presentation.base.UiEvent
 import com.example.cryptoapp.presentation.base.UiState
 
-class MainContract {
+class DetailsContract {
 
     sealed class Event: UiEvent {
 //        object OnInternetCheckFailure: Event()
@@ -12,12 +12,12 @@ class MainContract {
     }
 
     data class State(
-        val cryptoState: CryptoState
+        val detailsCryptoState: DetailsCryptoState
     ): UiState
 
-    sealed class CryptoState {
-        object Error: CryptoState() // Пока что ничего не делает
-        object Success: CryptoState()
+    sealed class DetailsCryptoState {
+        object Loading: DetailsCryptoState()
+        object Success: DetailsCryptoState()
     }
 
     sealed class Effect: UiEffect {
