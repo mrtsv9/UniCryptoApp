@@ -13,13 +13,16 @@ interface ApiService {
     suspend fun getCryptos(): Response<List<CryptoResponse>>
 
     @GET("coins/markets?vs_currency=usd&per_page=20")
-    suspend fun getCryptosByPage(@Query("page") page: String): Response<List<CryptoResponse>>
+    suspend fun getCryptosByPage(
+        @Query("page") page: String,
+        @Query("order") alphabetically: String? = null,
+        @Query("order") price: String? = null
+        ): Response<List<CryptoResponse>>
 
     @GET("coins/{id}/market_chart?vs_currency=usd")
     suspend fun getDetailCrypto(
         @Path("id") id: String,
-        @Query("days") days: String
-    ): Response<CryptoDetailsResponse>
+        @Query("days") days: String): Response<CryptoDetailsResponse>
 
 //    @GET("coins/bitcoin/market_chart?vs_currency=usd&days=1")
 //    suspend fun getDetailCryptoTest(): Response<CryptoDetailsResponse>

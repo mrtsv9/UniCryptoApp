@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.IntentCompat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.cryptoapp.MainActivity
 import com.example.cryptoapp.R
 import com.example.cryptoapp.data.CryptoDatabase
@@ -34,6 +36,14 @@ class SplashScreenActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
+        val image = findViewById<ImageView>(R.id.iv_splash_image)
+        val myVectorIcon = AnimatedVectorDrawableCompat.create(
+            this,
+            R.drawable.animated_splash
+        )
+        image.setImageDrawable(myVectorIcon)
+        myVectorIcon?.start()
+
         CoroutineScope(Dispatchers.IO).launch {
             val db = CryptoDatabase.getDatabase(applicationContext)
             viewModel.insertCryptos(db)
@@ -42,7 +52,7 @@ class SplashScreenActivity : AppCompatActivity() {
         Handler().postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        },1000)
+        }, 0)
 
     }
 }

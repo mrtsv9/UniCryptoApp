@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable-v24/ic_splash_logo_test.xml" value="0.285" />
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/animated_splash.xml" value="0.285" />
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_first_frame.xml" value="0.285" />
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_frame_2.xml" value="0.285" />
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.35054347826086957" />
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_details.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_main.xml" value="0.35054347826086957" />
+        <entry key="..\:/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/item_crypto.xml" value="0.35054347826086957" />
         <entry key="..\:/Users/MartsevPC/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/border_button.xml" value="0.246" />
         <entry key="..\:/Users/MartsevPC/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_bitcoin.xml" value="0.246" />
         <entry key="..\:/Users/MartsevPC/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_bitcoin24.xml" value="0.246" />
@@ -22,9 +30,13 @@
         <entry key="..\:/Users/MartsevPC/AndroidStudioProjects/CryptoApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/MartsevPC/AndroidStudioProjects/CryptoApp/app/src/main/res/menu/toolbar_main.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/border_button.xml" value="0.2675" />
+        <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/border_text_input.xml" value="0.285" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/buttons_background.xml" value="0.2675" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/divider.xml" value="0.2675" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_baseline_backspace_24.xml" value="0.2995" />
+        <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.285" />
+        <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_camera.xml" value="0.285" />
+        <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_person.xml" value="0.285" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_save.xml" value="0.1325" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/my_button.xml" value="0.2675" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/selected_button.xml" value="0.2675" />
@@ -32,13 +44,13 @@
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_main.xml" value="0.2504528985507246" />
-        <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_settings.xml" value="0.33" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/item_crypto.xml" value="0.35054347826086957" />
         <entry key="..\:/Users/amart/AndroidStudioProjects/CryptoApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

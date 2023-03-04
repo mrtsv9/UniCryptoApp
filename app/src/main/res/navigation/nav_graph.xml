@@ -20,7 +20,14 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.cryptoapp.presentation.details_screen.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="crypto"
+            app:argType="com.example.cryptoapp.presentation.item.CryptoItem" />
+        <argument
+            android:name="transitionName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.cryptoapp.presentation.settings_screen.SettingsFragment"

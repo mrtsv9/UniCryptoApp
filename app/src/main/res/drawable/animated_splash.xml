@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_splash_logo">
+
+    <target
+        android:name="first"
+        android:animation="@animator/animate_first"/>
+
+    <target
+        android:name="second"
+        android:animation="@animator/animate_second" />
+
+    <target
+        android:name="third"
+        android:animation="@animator/animate_third" />
+
+    <target
+        android:name="fourth"
+        android:animation="@animator/animate_fourth" />
+
+</animated-vector>

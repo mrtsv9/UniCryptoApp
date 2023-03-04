@@ -9,7 +9,7 @@ data class CryptoItem(
     val abbr: String?,
     val title: String?,
     val imageLink: String?,
-    val price: String?,
+    val price: String,
     var marketCap: String?,
     var priceChange: String?
 ) : Parcelable {
@@ -18,7 +18,7 @@ data class CryptoItem(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
+        parcel.readString().toString(),
         parcel.readString(),
         parcel.readString()
     )

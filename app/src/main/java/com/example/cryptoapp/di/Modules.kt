@@ -10,6 +10,8 @@ import com.example.cryptoapp.presentation.details_screen.DetailsRepository
 import com.example.cryptoapp.presentation.details_screen.DetailsViewModel
 import com.example.cryptoapp.presentation.main_screen.MainRepository
 import com.example.cryptoapp.presentation.main_screen.MainViewModel
+import com.example.cryptoapp.presentation.settings_screen.SettingsRepository
+import com.example.cryptoapp.presentation.settings_screen.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -38,6 +40,9 @@ val appModule = module {
 
     factory <DetailsViewModel> { DetailsViewModel(repository = get()) }
 
+    factory <SettingsRepository> { SettingsRepository(db = get()) }
+
+    factory <SettingsViewModel> { SettingsViewModel(repository = get()) }
 }
 
 fun provideApiService(

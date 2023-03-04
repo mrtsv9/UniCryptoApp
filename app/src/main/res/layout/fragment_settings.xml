@@ -22,5 +22,154 @@
         android:layout_marginEnd="20dp"/>
 
     </androidx.appcompat.widget.Toolbar>
-    
+
+    <ImageView
+        android:id="@+id/iv_person_photo"
+        android:layout_width="0dp"
+        android:layout_height="340dp"
+        android:src="@drawable/ic_person"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setting_toolbar" />
+
+    <ImageView
+        android:id="@+id/iv_take_photo"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#50000000"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_person_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_camera"
+        android:layout_width="32dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_camera"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_person_photo"
+        app:layout_constraintEnd_toEndOf="@+id/iv_take_photo"
+        app:layout_constraintStart_toStartOf="@+id/iv_take_photo"
+        app:layout_constraintTop_toTopOf="@+id/iv_take_photo" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_first_name"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:counterTextColor="@color/white"
+        app:errorEnabled="true"
+        app:hintTextColor="#C4C4C4"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_take_photo"
+        app:layout_constraintStart_toStartOf="@+id/iv_take_photo"
+        app:layout_constraintTop_toBottomOf="@+id/iv_person_photo" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_first_name"
+            android:layout_width="340dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:hint="@string/first_name"
+            android:inputType="text"
+            android:textColorHint="#C4C4C4"
+            android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:background="@drawable/border_text_input">
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_last_name"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:counterTextColor="@color/white"
+        app:errorEnabled="true"
+        app:hintTextColor="#C4C4C4"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/iv_take_photo"
+        app:layout_constraintStart_toStartOf="@+id/iv_take_photo"
+        app:layout_constraintTop_toBottomOf="@+id/til_first_name" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_last_name"
+            android:layout_width="340dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:hint="@string/last_name"
+            android:inputType="text"
+            android:textColorHint="#C4C4C4"
+            android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:background="@drawable/border_text_input">
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_date_of_birth"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:counterTextColor="@color/white"
+        app:errorEnabled="true"
+        android:enabled="false"
+        app:hintTextColor="#C4C4C4"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/iv_take_photo"
+        app:layout_constraintStart_toStartOf="@+id/iv_take_photo"
+        app:layout_constraintTop_toBottomOf="@+id/til_last_name" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_date_of_birth"
+            android:layout_width="340dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:hint="@string/date_of_birth"
+            android:textColorHint="#C4C4C4"
+            android:inputType="datetime"
+            android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:background="@drawable/border_text_input">
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/btn_select_date"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/til_date_of_birth"
+        app:layout_constraintEnd_toEndOf="@+id/til_date_of_birth"
+        app:layout_constraintStart_toStartOf="@+id/til_date_of_birth"
+        app:layout_constraintTop_toBottomOf="@+id/til_last_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

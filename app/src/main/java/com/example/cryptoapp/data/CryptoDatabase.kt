@@ -1,15 +1,22 @@
 package com.example.cryptoapp.data
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.cryptoapp.data.dao.CryptoDao
 import com.example.cryptoapp.data.entities.CryptoEntity
+import com.example.cryptoapp.data.entities.PersonEntity
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = [CryptoEntity::class], version = 1)
-abstract class CryptoDatabase: RoomDatabase() {
+@Database(
+    entities = [CryptoEntity::class, PersonEntity::class],
+    version = 1,
+    exportSchema = false
+)
+
+abstract class CryptoDatabase : RoomDatabase() {
 
     abstract fun cryptoDao(): CryptoDao
 
@@ -21,7 +28,7 @@ abstract class CryptoDatabase: RoomDatabase() {
         fun getDatabase(context: Context): CryptoDatabase {
 
             val tempInstance = INSTANCE
-            if(tempInstance != null) {
+            if (tempInstance != null) {
                 return tempInstance
             }
             synchronized(this) {
@@ -29,7 +36,10 @@ abstract class CryptoDatabase: RoomDatabase() {
                     context.applicationContext,
                     CryptoDatabase::class.java,
                     "crypto"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+
                 INSTANCE = instance
                 return instance
             }

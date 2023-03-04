@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="sequentially">
+
+    <objectAnimator
+        android:duration="500"
+        android:startOffset="500"
+        android:propertyName="pathData"
+        android:valueFrom="M105, 110 A10, 10 0 0, 1 135, 110, A10, 10 0 0, 1 105, 110"
+        android:valueTo="M130, 20 A10, 10 0 0, 1 130, 0, A10, 10 0 0, 1 130, 20"
+        android:valueType="pathType" />
+    <objectAnimator
+        android:duration="500"
+        android:propertyName="pathData"
+        android:valueFrom="M130, 20 A10, 10 0 0, 1 130, 0, A10, 10 0 0, 1 130, 20"
+        android:valueTo="M35, 35 A10, 10 0 0, 1 10, 35, A10, 10 0 0, 1 35, 35"
+        android:valueType="pathType"/>
+    <objectAnimator
+        android:duration="500"
+        android:propertyName="pathData"
+        android:valueFrom="M35, 35 A10, 10 0 0, 1 10, 35, A10, 10 0 0, 1 35, 35"
+        android:valueTo="M80, 90 A5, 5 0 0, 1 90, 90, A5, 5 0 0, 1 80, 90"
+        android:valueType="pathType"/>
+    <objectAnimator
+        android:duration="500"
+        android:propertyName="pathData"
+        android:valueFrom="M80, 90 A5, 5 0 0, 1 90, 90, A5, 5 0 0, 1 80, 90"
+        android:valueTo="M120, 40 A10, 10 1 0, 1 130, 20, A10, 10 1 0, 1 120, 40"
+        android:valueType="pathType"/>
+    <objectAnimator
+        android:duration="500"
+        android:propertyName="pathData"
+        android:valueFrom="M120, 40 A10, 10 1 0, 1 130, 20, A10, 10 1 0, 1 120, 40"
+        android:valueTo="M35, 35 A10, 10 0 0, 1 10, 35, A10, 10 0 0, 1 35, 35"
+        android:valueType="pathType"/>
+
+
+</set>

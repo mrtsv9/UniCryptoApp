@@ -40,6 +40,24 @@ class MainRepository(
             }
     }
 
+    fun getCryptosAlphabeticallyByPage(): Flow<PagingData<CryptoItem>> {
+        return remoteDataSource.getCryptosAlphabetically()
+            .map { pagingData ->
+                pagingData.map {
+                    it.toCryptoItem()
+                }
+            }
+    }
+
+    fun getCryptosByPriceByPage(): Flow<PagingData<CryptoItem>> {
+        return remoteDataSource.getCryptosByPrice()
+            .map { pagingData ->
+                pagingData.map {
+                    it.toCryptoItem()
+                }
+            }
+    }
+
     fun getCryptosByPageFromDb(): Flow<PagingData<CryptoItem>> {
         return localDataSource.getCryptos()
             .map { pagingData ->

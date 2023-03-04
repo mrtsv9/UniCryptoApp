@@ -60,6 +60,14 @@ class MainViewModel constructor(
         return repository.getCryptosByPage().cachedIn(viewModelScope)
     }
 
+    fun fetchCryptosAlphabeticallyByPage(): Flow<PagingData<CryptoItem>> {
+        return repository.getCryptosAlphabeticallyByPage().cachedIn(viewModelScope)
+    }
+
+    fun fetchCryptosByPriceByPage(): Flow<PagingData<CryptoItem>> {
+        return repository.getCryptosByPriceByPage().cachedIn(viewModelScope)
+    }
+
 //    fun fetchCryptosByPageFromDb(): Flow<PagingData<CryptoItem>> {
 //        return repository.getCryptosByPageFromDb().cachedIn(viewModelScope)
 //    }

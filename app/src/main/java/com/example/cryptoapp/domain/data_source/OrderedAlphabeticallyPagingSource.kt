@@ -12,14 +12,15 @@ import java.io.IOException
 
 private const val STARTING_PAGE_INDEX = 1
 
-class CryptoRemotePagingSource: PagingSource<Int, CryptoResponse>() {
+class OrderedAlphabeticallyPagingSource: PagingSource<Int, CryptoResponse>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CryptoResponse> {
         val pageIndex = params.key ?: STARTING_PAGE_INDEX
         return try {
             val retrofit = RetrofitInstance.getRetrofitInstance().create(ApiService::class.java)
             val response = retrofit.getCryptosByPage(
-                page = pageIndex.toString()
+                page = pageIndex.toString(),
+                "coin_name_asc"
             )
             val cryptos: List<CryptoResponse>? = response.body()
             val nextKey =

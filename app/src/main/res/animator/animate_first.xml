@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="sequentially">
+
+        <objectAnimator
+            android:duration="500"
+            android:startOffset="500"
+            android:propertyName="pathData"
+            android:valueFrom="M120, 40 A10, 10 1 0, 1 130, 20, A10, 10 1 0, 1 120, 40"
+            android:valueTo="M20, 35 A10, 10 1 0, 1 60, 35, A10, 10 1 0, 1 20, 35"
+            android:valueType="pathType"/>
+
+        <objectAnimator
+            android:duration="500"
+            android:propertyName="pathData"
+            android:valueFrom="M20, 35 A10, 10 1 0, 1 60, 35, A10, 10 1 0, 1 20, 35"
+            android:valueTo="M30, 120 A10, 10 1 0, 1 50, 120, A10, 10 1 0, 1 30, 120"
+            android:valueType="pathType"/>
+
+        <objectAnimator
+            android:duration="500"
+            android:propertyName="pathData"
+            android:valueFrom="M30, 120 A10, 10 1 0, 1 50, 120, A10, 10 1 0, 1 30, 120"
+            android:valueTo="M120, 40 A10, 10 1 0, 1 130, 20, A10, 10 1 0, 1 120, 40"
+            android:valueType="pathType"/>
+
+        <objectAnimator
+            android:duration="500"
+            android:propertyName="pathData"
+            android:valueFrom="M120, 40 A10, 10 1 0, 1 130, 20, A10, 10 1 0, 1 120, 40"
+            android:valueTo="M115, 110 A10, 10 1 0, 1 135, 110, A10, 10 1 0, 1 115, 110"
+            android:valueType="pathType"/>
+
+        <objectAnimator
+            android:duration="500"
+            android:propertyName="pathData"
+            android:valueFrom="M115, 110 A10, 10 1 0, 1 135, 110, A10, 10 1 0, 1 115, 110"
+            android:valueTo="M50, 100 A10, 10 1 0, 1 50, 120, A10, 10 1 0, 1 50, 100"
+            android:valueType="pathType"/>
+
+<!--    <objectAnimator-->
+<!--        android:duration="700"-->
+<!--        android:startOffset="300"-->
+<!--        android:propertyName="pathData"-->
+<!--        android:valueFrom="M118.615, 49.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueTo="M18.615, 35.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueType="pathType" />-->
+<!--    <objectAnimator-->
+<!--        android:duration="700"-->
+<!--        android:propertyName="pathData"-->
+<!--        android:valueFrom="M18.615, 35.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueTo="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueType="pathType"/>-->
+<!--    <objectAnimator-->
+<!--        android:duration="700"-->
+<!--        android:propertyName="pathData"-->
+<!--        android:valueFrom="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueTo="M110.615, 24.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueType="pathType"/>-->
+<!--    <objectAnimator-->
+<!--        android:duration="700"-->
+<!--        android:propertyName="pathData"-->
+<!--        android:valueFrom="M110.615, 24.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueTo="M115.615, 124.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueType="pathType"/>-->
+<!--    <objectAnimator-->
+<!--        android:duration="700"-->
+<!--        android:propertyName="pathData"-->
+<!--        android:valueFrom="M115.615, 124.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueTo="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueType="pathType"/>-->
+<!--    <objectAnimator-->
+<!--        android:duration="700"-->
+<!--        android:propertyName="pathData"-->
+<!--        android:valueFrom="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueTo="M118.615, 49.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
+<!--        android:valueType="pathType"/>-->
+
+</set>

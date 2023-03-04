@@ -23,4 +23,28 @@ class CryptoRemoteDataSource {
         ).flow
     }
 
+    fun getCryptosAlphabetically(): Flow<PagingData<CryptoResponse>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                OrderedAlphabeticallyPagingSource()
+            }
+        ).flow
+    }
+
+    fun getCryptosByPrice(): Flow<PagingData<CryptoResponse>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                OrderedByPricePagingSource()
+            }
+        ).flow
+    }
+
 }
