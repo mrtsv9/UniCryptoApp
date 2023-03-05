@@ -12,7 +12,9 @@ data class CryptoEntity(
     var abbr: String,
     var title: String,
     var imageLink: String,
-    var price: String
+    var price: String,
+    var marketCap: String?,
+    var priceChange: String?
 )
 
 fun CryptoEntity.toCryptoItem(): CryptoItem{
@@ -22,8 +24,8 @@ fun CryptoEntity.toCryptoItem(): CryptoItem{
         title = title,
         imageLink = imageLink,
         price = price,
-        marketCap = null,
-        priceChange = null
+        marketCap = marketCap,
+        priceChange = priceChange
     )
 }
 

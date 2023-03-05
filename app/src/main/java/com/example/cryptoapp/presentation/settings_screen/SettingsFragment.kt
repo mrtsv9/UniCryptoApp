@@ -1,41 +1,36 @@
 package com.example.cryptoapp.presentation.settings_screen
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.cryptoapp.MainActivity
 import com.example.cryptoapp.R
 import com.example.cryptoapp.databinding.FragmentSettingsBinding
 import com.example.cryptoapp.presentation.base.BaseFragment
-import com.example.cryptoapp.presentation.item.PersonItem
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
@@ -49,7 +44,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     private val viewModel: SettingsViewModel by viewModel()
     private var URI: Uri? = null
     private var fileName: String? = null
-    private var person: PersonItem? = null
     private var photoBitmap: Bitmap? = null
 
     val PREFS_NAME = "MY_PREFS"
@@ -57,6 +51,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsBinding
         get() = FragmentSettingsBinding::inflate
 
+    @SuppressLint("ResourceAsColor")
     override fun setup() {
 
         val sharedPref: SharedPreferences =
@@ -65,7 +60,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
 
         toolbar = binding.settingToolbar
         toolbar.title = "Settings"
-        toolbar.setTitleTextColor(resources.getColor(R.color.white))
+
+        val typedValue = TypedValue()
+        val theme = context?.theme
+        theme?.resolveAttribute(R.attr.colorOnBackground, typedValue, true)
+        @ColorInt val colorWhite = typedValue.data
+        toolbar.setTitleTextColor(colorWhite)
 
         binding.etFirstName.setText(sharedPref.getString("name", null))
         binding.etLastName.setText(sharedPref.getString("last_name", null))
@@ -76,7 +76,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
             val sharedURI = sharedPref.getString("uri", null)
 
             val photoList = loadPhotosFromInternalStorage()
-            if (!photoList.isNullOrEmpty()) {
+            if (photoList.isNotEmpty()) {
                 binding.ivPersonPhoto.setImageBitmap(photoList[0].bmp)
             } else if (!sharedURI.isNullOrEmpty()) {
                 binding.ivPersonPhoto.load(sharedURI) {
@@ -121,7 +121,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                 }
             }
 
-            // show
             datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
         }
 
@@ -142,10 +141,17 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                     savePhotoToInternalStorage(fileName!!, photoBitmap!!)
                 }
 
-                Snackbar.make(binding.root, "Successfully added!", Snackbar.LENGTH_SHORT).show()
-            } else Snackbar.make(binding.root, "Error!", Snackbar.LENGTH_SHORT).show()
+                makeText(binding.root, "Successfully added!", null)
+            } else makeText(binding.root, "Error!", null)
 
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
     }
 
@@ -179,61 +185,30 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
 
     private fun cameraCheckPermission() {
 
-        Dexter.withContext(context)
-            .withPermissions(
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
                 android.Manifest.permission.CAMERA
-            ).withListener(
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            camera()
+        } else {
+            showRotationalDialogForPermission()
+        }
 
-                object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                        report?.let {
-
-                            if (report.areAllPermissionsGranted()) {
-                                if (person != null) {
-                                    deletePhotoFromInternalStorage(person?.fileName)
-                                }
-                                camera()
-                            }
-
-                        }
-                    }
-
-                    override fun onPermissionRationaleShouldBeShown(
-                        p0: MutableList<PermissionRequest>?,
-                        p1: PermissionToken?
-                    ) {
-                        showRotationalDialogForPermission()
-                    }
-
-                }
-            ).onSameThread().check()
     }
 
     private fun galleryCheckPermission() {
 
-        Dexter.withContext(context).withPermission(
-            android.Manifest.permission.READ_EXTERNAL_STORAGE
-        ).withListener(object : PermissionListener {
-            override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                gallery()
-            }
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            gallery()
+        } else {
+            showRotationalDialogForPermission()
+        }
 
-            override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-                Toast.makeText(
-                    context,
-                    "You have denied the storage permission to select image",
-                    Toast.LENGTH_SHORT
-                ).show()
-                showRotationalDialogForPermission()
-            }
-
-            override fun onPermissionRationaleShouldBeShown(
-                p0: PermissionRequest?, p1: PermissionToken?
-            ) {
-                showRotationalDialogForPermission()
-            }
-        }).onSameThread().check()
     }
 
     private fun showRotationalDialogForPermission() {
@@ -280,7 +255,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
 
                 CAMERA_REQUEST_CODE -> {
                     editor.putString("uri", null)
-                    var bitmap = data?.extras?.get("data") as Bitmap
+                    val bitmap = data?.extras?.get("data") as Bitmap
 
                     if (fileName == null) {
                         fileName = UUID.randomUUID().toString()
@@ -292,11 +267,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                     }
 
                     lifecycleScope.launch {
-                        runBlocking {
-                            val photoList = loadPhotosFromInternalStorage()
-                            if (!photoList.isNullOrEmpty()) {
-                                binding.ivPersonPhoto.setImageBitmap(photoList[0].bmp)
-                            }
+                        val photoList = loadPhotosFromInternalStorage()
+                        if (photoList.isNotEmpty()) {
+                            binding.ivPersonPhoto.setImageBitmap(photoList[0].bmp)
                         }
 
                     }
@@ -311,8 +284,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                     deletePhotoFromInternalStorage(sharedPref.getString("filename", null))
                     deletePhotoFromInternalStorage(fileName)
 
-                        if (fileName != null) deletePhotoFromInternalStorage(fileName)
-                        URI = data?.data
+                    if (fileName != null) deletePhotoFromInternalStorage(fileName)
+                    URI = data?.data
 
                     binding.ivPersonPhoto.load(data?.data) {
                         crossfade(true)
@@ -329,10 +302,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap): Boolean {
 
         lifecycleScope.launch {
-            runBlocking {
-                loadPhotosFromInternalStorage()?.forEach {
-                    (activity as? MainActivity)?.deleteFile(it.name)
-                }
+            loadPhotosFromInternalStorage().forEach {
+                (activity as? MainActivity)?.deleteFile(it.name)
             }
         }
 
@@ -352,7 +323,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
         }
     }
 
-    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto>? {
+    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
         return withContext(Dispatchers.IO) {
             val files = (activity as? MainActivity)?.filesDir?.listFiles()
             files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") }?.map {

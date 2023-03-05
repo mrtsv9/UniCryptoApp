@@ -44,7 +44,7 @@ class MainViewModelTest {
             CryptoDatabase::class.java
         ).allowMainThreadQueries().build()
         dao = db.cryptoDao()
-        viewModel = MainViewModel(MainRepository(CryptoRemoteDataSource(), CryptoDbDataSource(db)))
+        viewModel = MainViewModel(MainRepository(CryptoRemoteDataSource(), CryptoDbDataSource(db), dao))
     }
 
     @After

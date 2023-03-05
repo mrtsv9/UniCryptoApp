@@ -28,7 +28,6 @@ class OrderedAlphabeticallyPagingSource: PagingSource<Int, CryptoResponse>() {
                     null
                 } else {
                     // That means that user reached limit of 50 calls/minute
-                    Log.d("KEK","API is not responding")
                     pageIndex + (params.loadSize / NETWORK_PAGE_SIZE)
                 }
             LoadResult.Page(

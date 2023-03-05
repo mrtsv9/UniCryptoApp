@@ -38,42 +38,4 @@
             android:valueTo="M50, 100 A10, 10 1 0, 1 50, 120, A10, 10 1 0, 1 50, 100"
             android:valueType="pathType"/>
 
-<!--    <objectAnimator-->
-<!--        android:duration="700"-->
-<!--        android:startOffset="300"-->
-<!--        android:propertyName="pathData"-->
-<!--        android:valueFrom="M118.615, 49.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueTo="M18.615, 35.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueType="pathType" />-->
-<!--    <objectAnimator-->
-<!--        android:duration="700"-->
-<!--        android:propertyName="pathData"-->
-<!--        android:valueFrom="M18.615, 35.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueTo="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueType="pathType"/>-->
-<!--    <objectAnimator-->
-<!--        android:duration="700"-->
-<!--        android:propertyName="pathData"-->
-<!--        android:valueFrom="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueTo="M110.615, 24.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueType="pathType"/>-->
-<!--    <objectAnimator-->
-<!--        android:duration="700"-->
-<!--        android:propertyName="pathData"-->
-<!--        android:valueFrom="M110.615, 24.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueTo="M115.615, 124.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueType="pathType"/>-->
-<!--    <objectAnimator-->
-<!--        android:duration="700"-->
-<!--        android:propertyName="pathData"-->
-<!--        android:valueFrom="M115.615, 124.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueTo="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueType="pathType"/>-->
-<!--    <objectAnimator-->
-<!--        android:duration="700"-->
-<!--        android:propertyName="pathData"-->
-<!--        android:valueFrom="M40.615, 100.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueTo="M118.615, 49.582a15, 15 0, 1 0, 30 0a15, 15 0, 1 0, -30 0z"-->
-<!--        android:valueType="pathType"/>-->
-
 </set>

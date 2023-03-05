@@ -22,10 +22,9 @@ class MainContract {
     }
 
     sealed class Effect: UiEffect {
-
         object ShowDialogFragment: Effect()
+        object Update: Effect()
         object UpdateRecycler: Effect()
-
     }
 
 

@@ -6,20 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.findNavController
 import com.example.cryptoapp.databinding.ActivityMainBinding
-import com.example.cryptoapp.presentation.dialog.MyDialog
-import com.example.cryptoapp.presentation.main_screen.MainViewModel
-import com.example.cryptoapp.service.MyService
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.example.cryptoapp.presentation.dialog.InternetFailedDialog
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlin.Suppress
+import com.example.cryptoapp.service.InternetService
 import kotlin.also
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
-    private val viewModel: MainViewModel by viewModel()
+
+    private var failedDialog: InternetFailedDialog? = null
+    private var isAlreadyShow = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        Intent(this, MyService::class.java).also {
+        Intent(this, InternetService::class.java).also {
             startService(it)
         }
 
@@ -35,37 +32,33 @@ class MainActivity : AppCompatActivity() {
             messageReceiver, IntentFilter("CheckInternet")
         )
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        val bottomNavigationView = binding?.bottomNav
         val navController = findNavController(R.id.container)
-        bottomNavigationView.setupWithNavController(navController)
-
-//        binding?.bottomMenu?.setOnItemSelectedListener  {
-//            when(it.itemId) {
-//                R.id.miHome -> {
-//                    loadFragment(MainFragment())
-//                    true
-//                }
-//                R.id.miSettings -> {
-//                    loadFragment(SettingsFragment())
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+        bottomNavigationView?.setupWithNavController(navController)
 
     }
 
     private val messageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             val message = intent.getStringExtra("Connection")
-            if (message == "DISCONNECTED") {
+            if (message == "DISCONNECTED" && !isAlreadyShow) {
+                isAlreadyShow = true
                 showDialog()
+            }
+            else if (message == "CONNECTED" && isAlreadyShow) {
+                isAlreadyShow = false
+                hideDialog()
             }
         }
     }
 
     private fun showDialog() {
-        MyDialog().show(supportFragmentManager, "MyCustomFragment")
+        failedDialog = InternetFailedDialog()
+        failedDialog!!.show(supportFragmentManager, "MyCustomFragment")
+    }
+
+    private fun hideDialog() {
+        failedDialog!!.dismiss()
     }
 
 }

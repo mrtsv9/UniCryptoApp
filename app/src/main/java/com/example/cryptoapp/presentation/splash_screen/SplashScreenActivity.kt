@@ -4,55 +4,71 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.IntentCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.cryptoapp.MainActivity
 import com.example.cryptoapp.R
 import com.example.cryptoapp.data.CryptoDatabase
-import com.example.cryptoapp.domain.data_source.CryptoRemoteDataSource
-import com.example.cryptoapp.presentation.main_screen.MainRepository
+import com.example.cryptoapp.databinding.ActivityMainBinding
+import com.example.cryptoapp.databinding.ActivitySplashScreenBinding
+import com.example.cryptoapp.presentation.contracts.SplashContract
 import com.example.cryptoapp.presentation.main_screen.MainViewModel
-//import com.example.cryptoapp.domain.service.CryptoRemoteDataSource
 import kotlinx.coroutines.*
-import org.koin.android.ext.android.inject
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.system.measureTimeMillis
 
 @SuppressLint("CustomSplashScreen")
-@Suppress("DEPRECATION")
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: SplashViewModel by viewModel()
+    private var binding: ActivitySplashScreenBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+        setContentView(binding?.root)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        initObservers()
 
-        val image = findViewById<ImageView>(R.id.iv_splash_image)
+        val image = binding?.ivSplashImage
         val myVectorIcon = AnimatedVectorDrawableCompat.create(
             this,
             R.drawable.animated_splash
         )
-        image.setImageDrawable(myVectorIcon)
+
+        image?.setImageDrawable(myVectorIcon)
         myVectorIcon?.start()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val db = CryptoDatabase.getDatabase(applicationContext)
-            viewModel.insertCryptos(db)
-        }
-
-        Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }, 0)
+        viewModel.insertCryptos()
 
     }
+
+    private fun initObservers() {
+        lifecycleScope.launch {
+            viewModel.effect.collect {
+                when(it) {
+                    is SplashContract.Effect.OpenMainActivity -> {
+                        openMainActivity()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun openMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
 }
+
+
+
+
+
+

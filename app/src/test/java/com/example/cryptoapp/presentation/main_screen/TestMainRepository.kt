@@ -5,7 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import kotlin.random.Random
 
-class FakeMainRepository {
+class TestMainRepository {
 
     private val cryptos = mutableListOf<CryptoResponse>()
 

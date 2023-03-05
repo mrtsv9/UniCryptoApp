@@ -39,6 +39,8 @@ fun CryptoResponse.toCryptoEntity(): CryptoEntity {
         abbr = abbr,
         title = title,
         imageLink = imageLink,
-        price = price
+        price = price,
+        marketCap = marketCap,
+        priceChange = priceChange
     )
 }

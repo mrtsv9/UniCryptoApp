@@ -35,15 +35,14 @@ class PagingMainAdapter(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
-        private val ivLogo: ImageView = itemView.findViewById(R.id.iv_crypto_logo)
-        private val tvAbbr: TextView = itemView.findViewById(R.id.tv_crypto_abbr)
-        private val tvTitle: TextView = itemView.findViewById(R.id.tv_crypto_title)
-        private val tvPrice: TextView = itemView.findViewById(R.id.tv_crypto_price)
+        private val ivLogo = itemView.findViewById<ImageView>(R.id.iv_crypto_logo)
+        private val tvAbbr = itemView.findViewById<TextView>(R.id.tv_crypto_abbr)
+        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_crypto_title)
+        private val tvPrice = itemView.findViewById<TextView>(R.id.tv_crypto_price)
 
         @SuppressLint("SetTextI18n")
         fun bind(crypto: CryptoItem, onClickListener: OnClickListener) {
             itemView.setOnClickListener {
-
                 tvPrice.transitionName = "transition$position"
                 onClickListener.onClick(crypto, tvPrice)
             }

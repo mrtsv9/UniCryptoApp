@@ -1,6 +1,5 @@
 package com.example.cryptoapp.domain.data_source
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.cryptoapp.domain.RetrofitInstance
@@ -27,7 +26,6 @@ class CryptoRemotePagingSource: PagingSource<Int, CryptoResponse>() {
                     null
                 } else {
                     // That means that user reached limit of 50 calls/minute
-                    Log.d("KEK","API is not responding")
                     pageIndex + (params.loadSize / NETWORK_PAGE_SIZE)
                 }
             LoadResult.Page(
@@ -48,7 +46,5 @@ class CryptoRemotePagingSource: PagingSource<Int, CryptoResponse>() {
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
-
-
 
 }

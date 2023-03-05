@@ -3,11 +3,15 @@ package com.example.cryptoapp.presentation.details_screen
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
@@ -24,7 +28,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
@@ -33,8 +36,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         get() = FragmentDetailsBinding::inflate
 
     private val viewModel: DetailsViewModel by viewModel()
+
     var args: CryptoItem? = null
     var transitionName: String? = null
+
     private lateinit var lineChart: LineChart
     private var cryptoPrices = ArrayList<Float>()
     private lateinit var toolbar: Toolbar
@@ -43,12 +48,12 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val _args = requireArguments()
+        val _args: Bundle = requireArguments()
         args = DetailsFragmentArgs.fromBundle(_args).crypto
         transitionName = DetailsFragmentArgs.fromBundle(_args).transitionName
 
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
     }
 
     override fun onCreateView(
@@ -62,16 +67,17 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         return binding.root
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun setup() {
 
-
-        val crypto = arguments?.getParcelable<CryptoItem>("Crypto")
-
         toolbar = binding.detailsToolbar
-//        toolbar.title = crypto?.title
-        toolbar.setTitleTextColor(resources.getColor(R.color.white))
-        toolbar.navigationIcon = resources.getDrawable(R.drawable.ic_back)
+
+        val typedValue = TypedValue()
+        val theme = context?.theme
+        theme?.resolveAttribute(R.attr.colorOnBackground, typedValue, true)
+        @ColorInt val colorWhite = typedValue.data
+
+        toolbar.setTitleTextColor(colorWhite)
+        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_back, null)
         toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -84,6 +90,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         binding.tvDetailsTitle.text = args?.title
         binding.tvMarketCapPrice.text = args?.marketCap?.dropLast(6).plus(" B")
 
+        @SuppressLint("SetTextI18n")
         if (args?.priceChange?.get(0) != '-') {
             binding.tvSelectedCryptoPercent.text = "+${args?.priceChange} %"
         } else {
@@ -95,6 +102,12 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         initButtons()
         clickListener(binding.btn24h)
 
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private fun initButtons() {
@@ -110,10 +123,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         btnAll.setOnClickListener { clickListener(it) }
     }
 
-    // Bicycle
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun clickListener(view: View) {
-        val crypto = arguments?.getParcelable<CryptoItem>("Crypto")
         when (view.id) {
             binding.btn24h.id -> {
                 changeButtons(binding.btn24h)
@@ -143,32 +153,45 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun changeButtons(view: View) {
+
+        val typedValue = TypedValue()
+        val theme = context?.theme
+        theme?.resolveAttribute(R.attr.colorButtonNormal, typedValue, true)
+        @ColorInt val color = typedValue.data
+        theme?.resolveAttribute(R.attr.colorOnBackground, typedValue, true)
+        @ColorInt val colorWhite = typedValue.data
+
         if (prevSelectedBtn != null) {
-            prevSelectedBtn!!.background = resources.getDrawable(R.color.color_transparent)
-            prevSelectedBtn!!.setTextColor(resources.getColor(R.color.btn_inactive))
+            prevSelectedBtn!!.background =
+                ResourcesCompat.getDrawable(resources, R.color.color_transparent, null)
+            prevSelectedBtn!!.setTextColor(color)
         }
         when (view.id) {
             binding.btn24h.id -> {
-                binding.btn24h.background = resources.getDrawable(R.drawable.selected_button)
-                binding.btn24h.setTextColor(resources.getColor(R.color.white))
+                binding.btn24h.background =
+                    ResourcesCompat.getDrawable(resources, R.drawable.selected_button, null)
+                binding.btn24h.setTextColor(colorWhite)
             }
             binding.btn1w.id -> {
-                binding.btn1w.background = resources.getDrawable(R.drawable.selected_button)
-                binding.btn1w.setTextColor(resources.getColor(R.color.white))
+                binding.btn1w.background =
+                    ResourcesCompat.getDrawable(resources, R.drawable.selected_button, null)
+                binding.btn1w.setTextColor(colorWhite)
             }
             binding.btn1m.id -> {
-                binding.btn1m.background = resources.getDrawable(R.drawable.selected_button)
-                binding.btn1m.setTextColor(resources.getColor(R.color.white))
+                binding.btn1m.background =
+                    ResourcesCompat.getDrawable(resources, R.drawable.selected_button, null)
+                binding.btn1m.setTextColor(colorWhite)
             }
             binding.btn1y.id -> {
-                binding.btn1y.background = resources.getDrawable(R.drawable.selected_button)
-                binding.btn1y.setTextColor(resources.getColor(R.color.white))
+                binding.btn1y.background =
+                    ResourcesCompat.getDrawable(resources, R.drawable.selected_button, null)
+                binding.btn1y.setTextColor(colorWhite)
             }
             binding.btnAll.id -> {
-                binding.btnAll.background = resources.getDrawable(R.drawable.selected_button)
-                binding.btnAll.setTextColor(resources.getColor(R.color.white))
+                binding.btnAll.background =
+                    ResourcesCompat.getDrawable(resources, R.drawable.selected_button, null)
+                binding.btnAll.setTextColor(colorWhite)
             }
         }
     }
@@ -194,23 +217,20 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
 
         cryptoPrices.clear()
         lifecycleScope.launch(Dispatchers.Default) {
-            var response: CryptoDetailsResponse? = null
-            runBlocking {
-                response = viewModel.getDetailCrypto(id, days)
-                while (response == null) {
-                    i += 1
-                    Runnable {
-                        progressBar.progress = i
-                    }
-                    try {
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
+            val response: CryptoDetailsResponse? = viewModel.getDetailCrypto(id, days)
+            while (response == null) {
+                i += 1
+                Runnable {
+                    progressBar.progress = i
+                }
+                try {
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
                 }
             }
             progressBar.visibility = View.INVISIBLE
 
-            response?.prices?.map {
+            response.prices.map {
                 cryptoPrices.add(it[1])
             }
 
@@ -234,10 +254,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         //remove right y-axis
         lineChart.axisRight.isEnabled = false
 
-        //remove legend
         lineChart.legend.isEnabled = false
 
-        //remove description label
         lineChart.description.isEnabled = false
     }
 
@@ -246,13 +264,18 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         val entries: ArrayList<Entry> = ArrayList()
 
         for (i in cryptoPrices.indices) {
+
+            val typedValue = TypedValue()
+            val theme = context?.theme
+            theme?.resolveAttribute(R.attr.colorPrimaryVariant, typedValue, true)
+            @ColorInt val color = typedValue.data
+
             val currentPrice = cryptoPrices[i]
             entries.add(Entry(i.toFloat(), currentPrice))
             val lineDataSet = LineDataSet(entries, "")
-            lineDataSet.setDrawValues(false);
-            lineDataSet.lineWidth = 2.7F;
-            lineDataSet.color = resources.getColor(R.color.color_orange)
-            lineDataSet.fillColor = resources.getColor(R.color.color_orange)
+            lineDataSet.setDrawValues(false)
+            lineDataSet.lineWidth = 2.7F
+            lineDataSet.color = color
             lineDataSet.setDrawCircles(false)
 
             val data = LineData(lineDataSet)

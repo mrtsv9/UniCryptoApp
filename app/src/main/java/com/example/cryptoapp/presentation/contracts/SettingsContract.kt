@@ -6,26 +6,15 @@ import com.example.cryptoapp.presentation.base.UiState
 
 class SettingsContract {
 
-    sealed class Event: UiEvent {
-//        object OnInternetCheckFailure: Event()
-//        object OnInternetCheckSuccess: Event()
-    }
+    sealed class Event : UiEvent
 
     data class State(
         val settingsCryptoState: SettingsCryptoState
-    ): UiState
+    ) : UiState
 
     sealed class SettingsCryptoState {
-        object Empty: SettingsCryptoState()
-        object Loaded: SettingsCryptoState()
+        object Empty : SettingsCryptoState()
     }
 
-    sealed class Effect: UiEffect {
-
-//        object InternetError: Effect()
-//        object InternetSuccess: Effect()
-
-    }
-
-
+    sealed class Effect : UiEffect
 }

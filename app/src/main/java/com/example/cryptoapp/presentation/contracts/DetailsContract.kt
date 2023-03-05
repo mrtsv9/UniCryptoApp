@@ -6,14 +6,7 @@ import com.example.cryptoapp.presentation.base.UiState
 
 class DetailsContract {
 
-    sealed class Event: UiEvent {
-
-        class OnChartClicked(
-            id: String,
-            days: String
-        ): Event()
-
-    }
+    sealed class Event: UiEvent
 
     data class State(
         val detailsCryptoState: DetailsCryptoState
@@ -23,12 +16,6 @@ class DetailsContract {
         object Success: DetailsCryptoState()
     }
 
-    sealed class Effect: UiEffect {
-
-        object DrawChart: Effect()
-        object ShowProgressBar: Effect()
-
-    }
-
+    sealed class Effect: UiEffect
 
 }

@@ -7,10 +7,9 @@ import retrofit2.Response
 
 class DetailsRepository {
 
-    suspend fun getCryptoDetail(
-        id: String, days: String): Response<CryptoDetailsResponse> {
+    suspend fun getCryptoDetail(id: String, days: String): CryptoDetailsResponse? {
         val retrofitInstance = RetrofitInstance.getRetrofitInstance().create(ApiService::class.java)
-        return retrofitInstance.getDetailCrypto(id = id, days = days)
+        return retrofitInstance.getDetailCrypto(id = id, days = days).body()
     }
 
 }

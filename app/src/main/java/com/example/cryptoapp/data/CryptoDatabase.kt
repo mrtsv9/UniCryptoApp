@@ -7,12 +7,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.cryptoapp.data.dao.CryptoDao
 import com.example.cryptoapp.data.entities.CryptoEntity
-import com.example.cryptoapp.data.entities.PersonEntity
 import kotlinx.coroutines.CoroutineScope
 
 @Database(
-    entities = [CryptoEntity::class, PersonEntity::class],
-    version = 1,
+    entities = [CryptoEntity::class],
+    version = 4,
     exportSchema = false
 )
 
