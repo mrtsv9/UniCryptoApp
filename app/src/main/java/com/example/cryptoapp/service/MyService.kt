@@ -1,4 +1,4 @@
-package com.example.cryptoapp.test_service
+package com.example.cryptoapp.service
 
 import android.annotation.SuppressLint
 import android.app.Service

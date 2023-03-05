@@ -1,25 +1,17 @@
 package com.example.cryptoapp.presentation.main_screen.util
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cryptoapp.R
-import com.example.cryptoapp.presentation.details_screen.DetailsFragment
 import com.example.cryptoapp.presentation.item.CryptoItem
-import com.example.cryptoapp.presentation.main_screen.MainFragment
-import kotlinx.coroutines.withContext
 import java.math.RoundingMode
 
 class PagingMainAdapter(
@@ -51,6 +43,7 @@ class PagingMainAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(crypto: CryptoItem, onClickListener: OnClickListener) {
             itemView.setOnClickListener {
+
                 tvPrice.transitionName = "transition$position"
                 onClickListener.onClick(crypto, tvPrice)
             }
@@ -61,13 +54,17 @@ class PagingMainAdapter(
                 .into(ivLogo)
             tvAbbr.text = crypto.abbr
             tvTitle.text = crypto.title
-            if (crypto.price!!.toFloatOrNull()!! >= 1) {
-                tvPrice.text = "${crypto.price} $"
-            } else {
-                val decimal = crypto.price.toBigDecimal().setScale(5, RoundingMode.HALF_EVEN)
-                tvPrice.text = decimal.toString().plus(" $")
+            if (!crypto.price.isNullOrEmpty()) {
+                if (crypto.price.toFloatOrNull()!! >= 100000000) {
+                    tvPrice.text = crypto.price.dropLast(6).plus(" B")
+                }
+                else if (crypto.price.toFloatOrNull()!! >= 1) {
+                    tvPrice.text = "${crypto.price} $"
+                } else {
+                    val decimal = crypto.price.toBigDecimal().setScale(5, RoundingMode.HALF_EVEN)
+                    tvPrice.text = decimal.toString().plus(" $")
+                }
             }
-
         }
 
     }
@@ -91,5 +88,3 @@ class OnClickListener(val clickListener: (CryptoItem, TextView) -> Unit) {
         view: TextView
     ) = clickListener(crypto, view)
 }
-
-

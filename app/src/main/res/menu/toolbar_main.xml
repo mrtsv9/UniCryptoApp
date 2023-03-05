@@ -7,28 +7,14 @@
         android:icon="@drawable/ic_sort"
         android:title="sort"
         app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/sort_price"
-                android:title="By price"/>
-            <item
-                android:id="@+id/sort_alphabetically"
-                android:title="Alphabetically"/>
-
-<!--            <group-->
-<!--                android:id="@+id/btn_group">-->
-<!--                <item-->
-<!--                    android:id="@+id/sort_ok"-->
-<!--                    android:title="Ok"/>-->
-<!--                <item-->
-<!--                    android:id="@+id/sort_cancek"-->
-<!--                    android:title="Cancel"/>-->
-<!--            </group>-->
-        </menu>
+<!--        <menu>-->
+<!--            <item-->
+<!--                android:id="@+id/sort_price"-->
+<!--                android:title="By price"/>-->
+<!--            <item-->
+<!--                android:id="@+id/sort_alphabetically"-->
+<!--                android:title="Alphabetically"/>-->
+<!--        </menu>-->
     </item>
-
-
-
-
 
 </menu>

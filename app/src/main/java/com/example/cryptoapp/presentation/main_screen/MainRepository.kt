@@ -19,16 +19,12 @@ import retrofit2.Response
 class MainRepository(
     private val remoteDataSource: CryptoRemoteDataSource,
     private val localDataSource: CryptoDbDataSource,
-    private val db: CryptoDatabase
+//    private val db: CryptoDatabase
 ) {
 
     suspend fun getCryptos(): Response<List<CryptoResponse>> {
         val retrofitInstance = RetrofitInstance.getRetrofitInstance().create(ApiService::class.java)
         return retrofitInstance.getCryptos()
-    }
-
-    suspend fun getCryptosFromDb(): List<CryptoEntity> {
-        return db.cryptoDao().getAllCrypto()
     }
 
     fun getCryptosByPage(): Flow<PagingData<CryptoItem>> {

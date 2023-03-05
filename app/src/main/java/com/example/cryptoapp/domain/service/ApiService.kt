@@ -24,6 +24,7 @@ interface ApiService {
         @Path("id") id: String,
         @Query("days") days: String): Response<CryptoDetailsResponse>
 
+
 //    @GET("coins/bitcoin/market_chart?vs_currency=usd&days=1")
 //    suspend fun getDetailCryptoTest(): Response<CryptoDetailsResponse>
 

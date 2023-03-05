@@ -7,8 +7,12 @@ import com.example.cryptoapp.presentation.base.UiState
 class DetailsContract {
 
     sealed class Event: UiEvent {
-//        object OnInternetCheckFailure: Event()
-//        object OnInternetCheckSuccess: Event()
+
+        class OnChartClicked(
+            id: String,
+            days: String
+        ): Event()
+
     }
 
     data class State(
@@ -16,14 +20,13 @@ class DetailsContract {
     ): UiState
 
     sealed class DetailsCryptoState {
-        object Loading: DetailsCryptoState()
         object Success: DetailsCryptoState()
     }
 
     sealed class Effect: UiEffect {
 
-//        object InternetError: Effect()
-//        object InternetSuccess: Effect()
+        object DrawChart: Effect()
+        object ShowProgressBar: Effect()
 
     }
 

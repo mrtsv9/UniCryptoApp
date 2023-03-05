@@ -15,9 +15,9 @@ data class CryptoResponse (
     @SerializedName("current_price")
     var price: String,
     @SerializedName("market_cap")
-    var marketCap: String,
+    var marketCap: String?,
     @SerializedName("price_change_percentage_24h")
-    var priceChange: String
+    var priceChange: String?
 
 )
 

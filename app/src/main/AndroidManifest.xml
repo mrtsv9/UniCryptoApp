@@ -33,7 +33,7 @@
             android:exported="true">
         </activity>
         <service
-            android:name=".test_service.MyService"
+            android:name=".service.MyService"
             android:enabled="true" />
     </application>
 

@@ -13,9 +13,4 @@ class DetailsRepository {
         return retrofitInstance.getDetailCrypto(id = id, days = days)
     }
 
-//    suspend fun getCryptoDetailTest(): Response<CryptoDetailsResponse> {
-//        val retrofitInstance = RetrofitInstance.getRetrofitInstance().create(ApiService::class.java)
-//        return retrofitInstance.getDetailCryptoTest()
-//    }
-
 }

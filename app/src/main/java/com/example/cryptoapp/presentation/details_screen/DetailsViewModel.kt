@@ -11,7 +11,7 @@ class DetailsViewModel(
 ): BaseViewModel<DetailsContract.Event, DetailsContract.State, DetailsContract.Effect>() {
 
     override fun createInitialState(): DetailsContract.State {
-        return DetailsContract.State(DetailsContract.DetailsCryptoState.Loading)
+        return DetailsContract.State(DetailsContract.DetailsCryptoState.Success)
     }
 
     override fun handleEvent(event: DetailsContract.Event) {
@@ -23,11 +23,5 @@ class DetailsViewModel(
         return if (response.isSuccessful) response.body()
         else null
     }
-
-//    suspend fun getDetailCryptoTest(): CryptoDetailsResponse? {
-//        val response: Response<CryptoDetailsResponse> = repository.getCryptoDetailTest()
-//        return if (response.isSuccessful) response.body()
-//        else null
-//    }
 
 }

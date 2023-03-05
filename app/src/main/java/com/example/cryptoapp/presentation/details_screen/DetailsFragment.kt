@@ -23,7 +23,6 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,10 +55,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding.tvSelectedCryptoPrice.transitionName = transitionName
-        binding.tvSelectedCryptoPrice.text = args?.price.plus(" $")
+        binding.tvSelectedCryptoPrice.text = args?.price.plus(" $ ")
         return binding.root
     }
 
@@ -83,12 +82,13 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
                 .into(binding.ivDetailsLogo)
         }
         binding.tvDetailsTitle.text = args?.title
-        binding.tvMarketCapPrice.text = args?.marketCap + " $"
-        if (crypto?.priceChange?.get(0) != '-') {
+        binding.tvMarketCapPrice.text = args?.marketCap?.dropLast(6).plus(" B")
+
+        if (args?.priceChange?.get(0) != '-') {
             binding.tvSelectedCryptoPercent.text = "+${args?.priceChange} %"
         } else {
             binding.tvSelectedCryptoPercent.text = "${args?.priceChange} %"
-            binding.tvSelectedCryptoPercent.setTextColor(R.color.color_red)
+            binding.tvSelectedCryptoPercent.setTextColor(Color.RED)
         }
 
         initObservers()
@@ -177,9 +177,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         lifecycleScope.launch {
             viewModel.uiState.collect { state ->
                 when (state.detailsCryptoState) {
-                    is DetailsContract.DetailsCryptoState.Loading -> {
-
-                    }
                     is DetailsContract.DetailsCryptoState.Success -> {
 
                     }

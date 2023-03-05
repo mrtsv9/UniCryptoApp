@@ -23,6 +23,7 @@ import com.example.cryptoapp.R
 import com.example.cryptoapp.databinding.FragmentSettingsBinding
 import com.example.cryptoapp.presentation.base.BaseFragment
 import com.example.cryptoapp.presentation.item.PersonItem
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -86,8 +87,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
 
         }
 
-
-
         binding.ivTakePhoto.setOnClickListener {
 
             val pictureDialog = context?.let { context -> AlertDialog.Builder(context) }
@@ -143,15 +142,15 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                     savePhotoToInternalStorage(fileName!!, photoBitmap!!)
                 }
 
-                Toast.makeText(context, "Added", Toast.LENGTH_SHORT).show()
-            }
+                Snackbar.make(binding.root, "Successfully added!", Snackbar.LENGTH_SHORT).show()
+            } else Snackbar.make(binding.root, "Error!", Snackbar.LENGTH_SHORT).show()
+
         }
 
     }
 
     private fun validateTextFields(et: TextInputEditText): Boolean {
         if (et.text?.length!! < 1 || et.text?.length!! > 20) {
-            Toast.makeText(context, "Check your text fields!", Toast.LENGTH_SHORT).show()
             return false
         }
         return true

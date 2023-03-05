@@ -7,8 +7,8 @@ import com.example.cryptoapp.presentation.base.UiState
 class MainContract {
 
     sealed class Event: UiEvent {
-//        object OnInternetCheckFailure: Event()
-//        object OnInternetCheckSuccess: Event()
+        object OnSortClicked: Event()
+        object OnUpdateScroll: Event()
     }
 
     data class State(
@@ -16,14 +16,15 @@ class MainContract {
     ): UiState
 
     sealed class CryptoState {
-        object Error: CryptoState() // Пока что ничего не делает
-        object Success: CryptoState()
+        object Default: CryptoState()
+        object OrderedAlphabetically: CryptoState()
+        object OrderedByPrice: CryptoState()
     }
 
     sealed class Effect: UiEffect {
 
-//        object InternetError: Effect()
-//        object InternetSuccess: Effect()
+        object ShowDialogFragment: Effect()
+        object UpdateRecycler: Effect()
 
     }
 

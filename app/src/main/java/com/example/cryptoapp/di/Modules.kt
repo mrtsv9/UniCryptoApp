@@ -25,8 +25,10 @@ val appModule = module {
     factory  {
         CryptoRemoteDataSource()
     }
-    factory<MainRepository> { MainRepository( remoteDataSource =  get(), db = get(),
-        localDataSource = get()) }
+    factory<MainRepository> { MainRepository( remoteDataSource =  get(),
+        localDataSource = get()
+//        db = get(),
+        ) }
 
     factory<CryptoRemotePagingSource> { CryptoRemotePagingSource() }
 

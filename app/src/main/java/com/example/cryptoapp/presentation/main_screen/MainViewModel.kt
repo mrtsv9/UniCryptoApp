@@ -3,7 +3,6 @@ package com.example.cryptoapp.presentation.main_screen
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.example.cryptoapp.data.CryptoDatabase
-import com.example.cryptoapp.data.entities.CryptoEntity
 import com.example.cryptoapp.domain.dto.CryptoResponse
 import com.example.cryptoapp.domain.dto.toCryptoEntity
 import com.example.cryptoapp.presentation.base.BaseViewModel
@@ -16,20 +15,19 @@ class MainViewModel constructor(
     private val repository: MainRepository
 ): BaseViewModel<MainContract.Event, MainContract.State, MainContract.Effect>() {
 
-
     override fun createInitialState(): MainContract.State {
-        return MainContract.State(MainContract.CryptoState.Success)
+        return MainContract.State(MainContract.CryptoState.Default)
     }
 
     override fun handleEvent(event: MainContract.Event) {
-//        when(event) {
-//            is MainContract.Event.OnInternetCheckFailure -> {
-//                setEffect { MainContract.Effect.InternetError }
-//            }
-//            is MainContract.Event.OnInternetCheckSuccess -> {
-//                setEffect { MainContract.Effect.InternetSuccess }
-//            }
-//        }
+        when(event) {
+            is MainContract.Event.OnSortClicked -> {
+                setEffect { MainContract.Effect.ShowDialogFragment }
+            }
+            is MainContract.Event.OnUpdateScroll -> {
+                setEffect { MainContract.Effect.UpdateRecycler }
+            }
+        }
     }
 
     // Fetching cryptos from server and inserting in DB
@@ -42,10 +40,10 @@ class MainViewModel constructor(
                         db.cryptoDao().insertCrypto(it.toCryptoEntity())
                     }
                 }
-                    setState { copy(cryptoState = MainContract.CryptoState.Success) }
+                    setState { copy(cryptoState = MainContract.CryptoState.Default) }
             }
             catch (e: Exception) {
-//                setEffect { MainContract.Effect.InternetError }
+                e.printStackTrace()
             }
         }
     }
@@ -68,18 +66,8 @@ class MainViewModel constructor(
         return repository.getCryptosByPriceByPage().cachedIn(viewModelScope)
     }
 
-//    fun fetchCryptosByPageFromDb(): Flow<PagingData<CryptoItem>> {
-//        return repository.getCryptosByPageFromDb().cachedIn(viewModelScope)
-//    }
-
-    fun getCryptosFromDb(): List<CryptoEntity> {
-        val list = mutableListOf<CryptoEntity>()
-        viewModelScope.launch {
-            runBlocking {
-                list.addAll(repository.getCryptosFromDb())
-            }
-        }
-        return list
+    fun fetchCryptosByPageFromDb(): Flow<PagingData<CryptoItem>> {
+        return repository.getCryptosByPageFromDb().cachedIn(viewModelScope)
     }
 
 }
