@@ -20,9 +20,14 @@ class CryptoRemotePagingSource: PagingSource<Int, CryptoResponse>() {
             val response = retrofit.getCryptosByPage(
                 page = pageIndex.toString()
             )
-            val cryptos: List<CryptoResponse>? = response.body()
+            var cryptos: List<CryptoResponse> = emptyList()
+            cryptos = if (response.code() == 200){
+                response.body()!!
+            }else{
+                emptyList()
+            }
             val nextKey =
-                if (cryptos!!.isEmpty()) {
+                if (cryptos.isEmpty()) {
                     null
                 } else {
                     // That means that user reached limit of 50 calls/minute
